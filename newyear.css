@@ -3,25 +3,18 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* 核心：告诉浏览器这个页面只用浅色模式，防止变黑 */
     color-scheme: light !important; 
 }
 
 body {
     font-family: 'Microsoft YaHei', Arial, sans-serif;
-    /* 强制橙红色渐变，添加 !important 覆盖所有系统设置 */
+    /* 强制背景色，解决之前变黑的问题 */
     background: linear-gradient(135deg, #FFB6A3 0%, #FFA07A 50%, #FF8C69 100%) !important;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden; /* 防止特效产生滚动条 */
-}
-
-/* 即使在黑暗模式下也强制保持原色 */
-@media (prefers-color-scheme: dark) {
-    body { background: linear-gradient(135deg, #FFB6A3 0%, #FFA07A 50%, #FF8C69 100%) !important; }
-    .greeting { background: rgba(255, 255, 255, 0.95) !important; }
+    overflow: hidden; 
 }
 
 .container {
@@ -55,12 +48,11 @@ body {
     border: 2px solid #FFB6A3;
 }
 
-/* 核心修复：确保“新年快乐”在一行且不被挤断 */
+/* 确保标题在一行且不换行 */
 .greeting h1 {
     color: #D2691E !important;
-    /* 根据屏幕宽度自动缩小字体，防止换行 */
     font-size: clamp(1.2rem, 7vw, 2.2rem) !important; 
-    white-space: nowrap !important; /* 强制不换行 */
+    white-space: nowrap !important; 
     margin-bottom: 15px;
 }
 
@@ -69,15 +61,17 @@ body {
     line-height: 1.6;
 }
 
-/* 找回特效：关键在于 z-index 要最高 */
+/* --- 找回并美化金币特效 --- */
 .coin, .big-coin, .particle {
     position: fixed !important;
-    pointer-events: none; /* 必加：让点击能穿透特效，否则点两下就失效 */
+    pointer-events: none; 
     z-index: 9999 !important; 
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #D2691E !important; /* 强制金币颜色，防止在黑暗模式隐身 */
+    /* 让金币变成金色并带闪光阴影 */
+    color: #FFD700 !important; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3), 0 0 10px rgba(255,215,0,0.5) !important;
     font-weight: bold;
 }
 
