@@ -1,3 +1,4 @@
+/* --- 基础重置 --- */
 * {
     margin: 0;
     padding: 0;
@@ -5,42 +6,49 @@
 }
 
 :root {
-    /* 强制声明亮色模式，防止手机端反转颜色 */
+    /* 核心：强制浏览器以亮色模式渲染，防止背景变黑 */
     color-scheme: light;
     --bg-gradient: linear-gradient(135deg, #FFB6A3 0%, #FFA07A 50%, #FF8C69 100%);
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --primary-brown: #8B4513;
+    --title-orange: #D2691E;
 }
 
+/* --- 页面背景 --- */
 body {
-    font-family: 'Microsoft YaHei', Arial, sans-serif;
-    /* 使用 !important 确保背景不被系统深色模式覆盖 */
+    font-family: 'Microsoft YaHei', -apple-system, Arial, sans-serif;
+    /* 使用 !important 锁定背景色，不受系统深色模式干扰 */
     background: var(--bg-gradient) !important;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow-x: hidden;
+    position: relative;
 }
 
-/* 容器适配 */
+/* --- 主容器适配 --- */
 .container {
     text-align: center;
-    padding: 15px;
+    padding: 10px;
     width: 100%;
     max-width: 500px;
     z-index: 10;
     opacity: 0;
-    /* 将动画延迟缩短到 0.3s，防止长时间黑屏/空白 */
-    animation: fadeIn 0.6s ease-in 0.3s forwards;
+    /* 优化：缩短延迟时间至 0.5s，让内容更快呈现 */
+    animation: fadeIn 0.6s ease-in 0.5s forwards;
 }
 
 @keyframes fadeIn {
     to { opacity: 1; }
 }
 
-/* Logo 适配：缩小手机端尺寸 */
+/* --- Logo 动画与适配 --- */
 .logo-image {
-    width: 120px; 
-    height: 120px;
+    width: 35vw; 
+    height: 35vw;
+    max-width: 140px; 
+    max-height: 140px;
     margin: 0 auto 10px;
     animation: float 3s ease-in-out infinite;
 }
@@ -49,61 +57,79 @@ body {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15));
 }
 
-/* 标题适配 */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+/* --- 标题文字适配 --- */
 .logo {
-    font-size: 2.2rem; /* 减小字号防止手机端折行 */
+    font-size: clamp(2rem, 8vw, 2.8rem); /* 随屏幕大小动态缩放字号 */
     font-weight: bold;
-    color: #8B4513; /* 使用棕色保持温馨感 */
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    color: var(--primary-brown);
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
     margin-bottom: 5px;
 }
 
 .logo-subtitle {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 4vw, 1.3rem);
+    font-weight: 600;
     color: #654321;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    letter-spacing: 2px;
 }
 
-/* 祝福卡片：手机端适配核心 */
+/* --- 祝福卡片适配 --- */
 .greeting {
-    background: rgba(255, 255, 255, 0.95) !important; /* 确保背景是白色 */
+    background: var(--card-bg) !important;
     border-radius: 20px;
-    padding: 30px 20px; /* 减小内边距 */
-    margin: 0 10px; /* 增加外边距防止贴边 */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    border: 2px solid #FFB6A3;
+    padding: 30px 20px; /* 针对手机缩小内边距 */
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    margin: 10px 15px; /* 左右留出安全距离 */
+    border: 3px solid #FFB6A3;
 }
 
 .greeting h1 {
-    color: #D2691E;
-    font-size: 1.8rem; /* 适配屏幕宽度 */
+    color: var(--title-orange);
+    font-size: clamp(1.8rem, 6vw, 2.4rem);
     margin-bottom: 15px;
-    white-space: nowrap;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
 }
 
 .greeting p {
-    color: #333 !important; /* 强制文字为深色 */
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin: 10px 0;
+    color: #333 !important; /* 强制文字颜色不反转 */
+    font-size: clamp(1rem, 3.5vw, 1.2rem);
+    line-height: 1.7;
+    margin: 12px 0;
 }
 
-/* 底部横条适配 */
+/* --- 底部装饰横条 --- */
 .blessing {
-    color: #8B4513;
+    color: var(--primary-brown);
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: clamp(1rem, 3.5vw, 1.2rem);
     margin-top: 20px;
     padding: 12px;
     background: linear-gradient(135deg, #FFDAB9 0%, #FFB6A3 100%);
     border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
-/* 漂浮动画 */
-@keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-8px); }
+/* --- 针对深色模式的深度防御 --- */
+@media (prefers-color-scheme: dark) {
+    body { background: var(--bg-gradient) !important; }
+    .greeting { background: #fff !important; }
+    .greeting p { color: #333 !important; }
+}
+
+/* --- 特效层 (金币/粒子) --- */
+.coin, .big-coin, .particle {
+    position: fixed;
+    pointer-events: none; /* 防止遮挡点击 */
 }
