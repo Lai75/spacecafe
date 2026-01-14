@@ -3,89 +3,45 @@
     padding: 0;
     box-sizing: border-box;
 }
-/* 强制所有模式下保持原有色调 */
+
 :root {
+    /* 强制声明亮色模式，防止手机端反转颜色 */
     color-scheme: light;
+    --bg-gradient: linear-gradient(135deg, #FFB6A3 0%, #FFA07A 50%, #FF8C69 100%);
 }
 
 body {
-    /* 添加 !important 确保背景不被覆盖 */
-    background: linear-gradient(135deg, #FFB6A3 0%, #FFA07A 50%, #FF8C69 100%) !important;
-    background-attachment: fixed; /* 修复手机端滚动时背景断裂 */
-}
-
-/* 深色模式 */
-@media (prefers-color-scheme: dark) {
-    body {
-        background: linear-gradient(135deg, #2d1810 0%, #1a0f0a 50%, #0d0705 100%);
-    }
-    
-    .logo, .logo-subtitle {
-        color: #FFB6A3;
-    }
-    
-    .greeting {
-        background: rgba(30, 20, 15, 0.95);
-        border-color: #8B4513;
-    }
-    
-    .greeting h1 {
-        color: #FFA07A;
-    }
-    
-    .greeting p {
-        color: #E5D4C1;
-    }
-    
-    .blessing {
-        color: #FFD4A3;
-        background: linear-gradient(135deg, #3d2415 0%, #2d1810 100%);
-    }
-    
-    .coupon-section {
-        background: linear-gradient(135deg, #3d2415 0%, #2d1810 100%);
-        border-color: #D2691E;
-    }
-    
-    .coupon-display {
-        background: rgba(30, 20, 15, 0.98);
-        border-color: #FFA07A;
-    }
-    
-    .coupon-code {
-        color: #FFB6A3;
-    }
-    
-    .coupon-details {
-        color: #FFD4A3;
-    }
-    
-    .coupon-expire {
-        color: #999;
-    }
-}
-.container {
-    text-align: center;
-    padding: 10px;
-    position: relative;
-    z-index: 10;
+    font-family: 'Microsoft YaHei', Arial, sans-serif;
+    /* 使用 !important 确保背景不被系统深色模式覆盖 */
+    background: var(--bg-gradient) !important;
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow-x: hidden;
+}
+
+/* 容器适配 */
+.container {
+    text-align: center;
+    padding: 15px;
+    width: 100%;
+    max-width: 500px;
+    z-index: 10;
     opacity: 0;
-    animation: fadeIn 0.5s ease-in 0.5s forwards;
+    /* 将动画延迟缩短到 0.3s，防止长时间黑屏/空白 */
+    animation: fadeIn 0.6s ease-in 0.3s forwards;
 }
 
 @keyframes fadeIn {
     to { opacity: 1; }
 }
 
+/* Logo 适配：缩小手机端尺寸 */
 .logo-image {
-    width: 150px;
-    height: 150px;
-    margin: 0 auto 20px;
+    width: 120px; 
+    height: 120px;
+    margin: 0 auto 10px;
     animation: float 3s ease-in-out infinite;
 }
 
@@ -93,170 +49,61 @@ body {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
 }
 
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
-}
-
+/* 标题适配 */
 .logo {
-    font-size: 2.2em;
+    font-size: 2.2rem; /* 减小字号防止手机端折行 */
     font-weight: bold;
-    color: #8B4513;
-    text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
-    margin-bottom: 10px;
-    animation: glow 2s ease-in-out infinite;
+    color: #8B4513; /* 使用棕色保持温馨感 */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    margin-bottom: 5px;
 }
 
 .logo-subtitle {
-    font-size: 1.5em;
-    font-weight: 600;
+    font-size: 1.2rem;
     color: #654321;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-    margin-bottom: 30px;
-    letter-spacing: 2px;
+    margin-bottom: 20px;
 }
 
-@keyframes glow {
-    0%, 100% { text-shadow: 3px 3px 6px rgba(0,0,0,0.3), 0 0 20px rgba(255,182,163,0.6); }
-    50% { text-shadow: 3px 3px 6px rgba(0,0,0,0.3), 0 0 30px rgba(255,182,163,0.9); }
-}
-
+/* 祝福卡片：手机端适配核心 */
 .greeting {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.95) !important; /* 确保背景是白色 */
     border-radius: 20px;
-    padding: 25px 15px; /* 减小内边距 */
-    margin: 15px; /* 减小外边距，防止贴边 */
+    padding: 30px 20px; /* 减小内边距 */
+    margin: 0 10px; /* 增加外边距防止贴边 */
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     border: 2px solid #FFB6A3;
 }
 
-/* 调整文字大小适配小屏幕 */
 .greeting h1 {
-    font-size: 1.8rem; /* 减小标题 */
-    white-space: nowrap; /* 防止“新年快乐”折行 */
+    color: #D2691E;
+    font-size: 1.8rem; /* 适配屏幕宽度 */
+    margin-bottom: 15px;
+    white-space: nowrap;
 }
 
 .greeting p {
+    color: #333 !important; /* 强制文字为深色 */
     font-size: 1.1rem;
     line-height: 1.6;
+    margin: 10px 0;
 }
 
+/* 底部横条适配 */
 .blessing {
+    color: #8B4513;
+    font-weight: bold;
     font-size: 1.1rem;
-    padding: 10px;
-}
-.coin {
-    position: fixed;
-    width: 60px;
-    height: 60px;
-    background: radial-gradient(circle at 30% 30%, #FFD4A3, #FFA07A);
-    border-radius: 50%;
-    border: 4px solid #D2691E;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    font-weight: bold;
-    color: #8B4513;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-    z-index: 100;
-    animation: explode ease-out forwards;
+    margin-top: 20px;
+    padding: 12px;
+    background: linear-gradient(135deg, #FFDAB9 0%, #FFB6A3 100%);
+    border-radius: 10px;
 }
 
-@keyframes explode {
-    0% {
-        transform: translate(-50%, -50%) scale(0) rotate(0deg);
-        opacity: 1;
-    }
-    20% {
-        transform: translate(calc(-50% + var(--tx) * 0.3), calc(-50% + var(--ty) * 0.3)) scale(1.2) rotate(180deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0.8) rotate(720deg);
-        opacity: 0;
-    }
+/* 漂浮动画 */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
 }
-
-.big-coin {
-    position: fixed;
-    width: 120px;
-    height: 120px;
-    background: radial-gradient(circle at 30% 30%, #FFD4A3, #FFA07A);
-    border-radius: 50%;
-    border: 6px solid #D2691E;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 50px;
-    font-weight: bold;
-    color: #8B4513;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-    z-index: 150;
-    animation: bigExplode 2s ease-out forwards;
-}
-
-@keyframes bigExplode {
-    0% {
-        transform: translate(-50%, -50%) scale(0) rotate(0deg);
-        opacity: 1;
-    }
-    30% {
-        transform: translate(calc(-50% + var(--tx) * 0.4), calc(-50% + var(--ty) * 0.4)) scale(1.5) rotate(360deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0.6) rotate(1080deg);
-        opacity: 0;
-    }
-}
-
-.flash {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(255,182,163,0.6) 0%, transparent 70%);
-    z-index: 200;
-    pointer-events: none;
-    opacity: 0;
-    animation: flashEffect 0.8s ease-out;
-}
-
-@keyframes flashEffect {
-    0%, 100% { opacity: 0; }
-    50% { opacity: 1; }
-}
-
-.particle {
-    position: fixed;
-    width: 8px;
-    height: 8px;
-    background: #FFB6A3;
-    border-radius: 50%;
-    z-index: 90;
-    animation: particleFloat ease-out forwards;
-    box-shadow: 0 0 10px #FFB6A3;
-}
-
-@keyframes particleFloat {
-    0% {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0);
-        opacity: 0;
-    }
-}
-
-
-
