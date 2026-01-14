@@ -103,8 +103,9 @@ body {
 
 .greeting h1 {
     color: #D2691E !important;
+    /* 根据屏幕宽度自动缩小字体，防止换行 */
     font-size: clamp(1.2rem, 7vw, 2.2rem) !important; 
-    white-space: nowrap !important; 
+    white-space: nowrap !important; /* 强制不换行 */
     margin-bottom: 15px;
 }
 
@@ -232,3 +233,4 @@ body {
     }
 
 }
+
