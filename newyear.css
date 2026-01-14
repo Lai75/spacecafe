@@ -101,16 +101,23 @@ body {
     border: 3px solid #FFB6A3;
 }
 
+/* 解决“新年快乐”在一行的问题 */
 .greeting h1 {
     color: #D2691E !important;
-    /* 根据屏幕宽度自动缩小字体，防止换行 */
-    font-size: clamp(1.2rem, 7vw, 2.2rem) !important; 
+    font-size: 7vw !important; /* 动态缩放 */
     white-space: nowrap !important; /* 强制不换行 */
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    display: block;
+    width: 100%;
+}
+
+@media (min-width: 400px) {
+    .greeting h1 { font-size: 1.6rem !important; }
 }
 
 .greeting p {
-    color: #333 !important;
+    color: #444 !important;
+    font-size: 1rem;
     line-height: 1.6;
 }
 
@@ -233,4 +240,5 @@ body {
     }
 
 }
+
 
