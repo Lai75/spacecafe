@@ -3,14 +3,15 @@
     padding: 0;
     box-sizing: border-box;
 }
+/* 强制所有模式下保持原有色调 */
+:root {
+    color-scheme: light;
+}
 
 body {
-    font-family: 'Microsoft YaHei', Arial, sans-serif;
-    background: linear-gradient(135deg, #FFC1AC 0%, #FFA07A 50%, #FF8C69 100%);
-    min-height: 100vh;
-    overflow-x: hidden;
-    position: relative;
-    transition: background 0.3s ease;
+    /* 添加 !important 确保背景不被覆盖 */
+    background: linear-gradient(135deg, #FFB6A3 0%, #FFA07A 50%, #FF8C69 100%) !important;
+    background-attachment: fixed; /* 修复手机端滚动时背景断裂 */
 }
 
 /* 深色模式 */
@@ -65,7 +66,7 @@ body {
 }
 .container {
     text-align: center;
-    padding: 20px;
+    padding: 10px;
     position: relative;
     z-index: 10;
     min-height: 100vh;
@@ -74,7 +75,7 @@ body {
     justify-content: center;
     align-items: center;
     opacity: 0;
-    animation: fadeIn 0.5s ease-in 1.5s forwards;
+    animation: fadeIn 0.5s ease-in 0.5s forwards;
 }
 
 @keyframes fadeIn {
@@ -105,7 +106,7 @@ body {
 }
 
 .logo {
-    font-size: 2.8em;
+    font-size: 2.2em;
     font-weight: bold;
     color: #8B4513;
     text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
@@ -130,37 +131,27 @@ body {
 .greeting {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
-    padding: 40px 30px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-    max-width: 500px;
-    margin: 20px;
-    border: 3px solid #FFB6A3;
+    padding: 25px 15px; /* 减小内边距 */
+    margin: 15px; /* 减小外边距，防止贴边 */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    border: 2px solid #FFB6A3;
 }
 
+/* 调整文字大小适配小屏幕 */
 .greeting h1 {
-    color: #D2691E;
-    font-size: 2.5em;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    font-size: 1.8rem; /* 减小标题 */
+    white-space: nowrap; /* 防止“新年快乐”折行 */
 }
 
 .greeting p {
-    color: #333;
-    font-size: 1.3em;
-    line-height: 1.8;
-    margin: 15px 0;
+    font-size: 1.1rem;
+    line-height: 1.6;
 }
 
 .blessing {
-    color: #8B4513;
-    font-weight: bold;
-    font-size: 1.4em;
-    margin-top: 25px;
-    padding: 15px;
-    background: linear-gradient(135deg, #FFDAB9 0%, #FFB6A3 100%);
-    border-radius: 10px;
+    font-size: 1.1rem;
+    padding: 10px;
 }
-
 .coin {
     position: fixed;
     width: 60px;
@@ -266,5 +257,6 @@ body {
         opacity: 0;
     }
 }
+
 
 
