@@ -92,16 +92,15 @@ body {
 }
 
 .greeting {
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--card-bg);
     border-radius: 20px;
-    padding: 40px 30px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-    max-width: 500px;
-    margin: 20px;
+    padding: 25px 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     border: 3px solid #FFB6A3;
+    margin: 0 5px;
 }
 
-/* 解决“新年快乐”在一行的问题 */
+/* 关键修改：解决标题换行问题 */
 .greeting h1 {
     color: #D2691E !important;
     /* 使用 min 函数动态缩小字体，确保一行内显示 */
@@ -111,10 +110,6 @@ body {
     text-overflow: ellipsis;
     margin-bottom: 15px;
     width: 100%;
-}
-
-@media (min-width: 400px) {
-    .greeting h1 { font-size: 1.6rem !important; }
 }
 
 .greeting p {
@@ -133,7 +128,6 @@ body {
     background: linear-gradient(135deg, #FFDAB9 0%, #FFB6A3 100%);
     border-radius: 10px;
 }
-
 .coin {
     position: fixed;
     width: 60px;
@@ -243,6 +237,7 @@ body {
     }
 
 }
+
 
 
 
